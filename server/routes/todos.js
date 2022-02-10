@@ -6,7 +6,13 @@ const Todo = require("../models/Todo");
 // @desc   get all todo
 // @access Public
 router.get("/", async (req, res) => {
-  res.status(200).json({ message: "Get goals" });
+  try {
+    // create a new todo
+    const todos = await Todo.find();
+    res.status(200).json(todos);
+  } catch (err) {
+    res.status(500).send("Server Error");
+  }
 });
 
 // @route  POST api/todos
