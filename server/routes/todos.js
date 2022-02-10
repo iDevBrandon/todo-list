@@ -32,15 +32,39 @@ router.post("/", async (req, res) => {
 // @route  PUT api/todos
 // @desc   update a todo
 // @access Public
-router.put("/:id", (req, res) => {
-  res.status(200).json({ message: "update goals" });
+router.put("/:id", async (req, res) => {
+  try {
+    const todo = await Todo.findById(req.params.id);
+
+    if (!todo) {
+      res.status(404).json({ msg: "Todo not found" });
+    }
+
+    const updatedTodo = await Todo.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
+
+    res.status(200).json(updatedTodo);
+  } catch (err) {
+    res.status(500).send("Server Error");
+  }
 });
 
 // @route  DELETE api/todos
 // @desc   delete a todo
 // @access Public
-router.delete("/:id", (req, res) => {
-  res.status(200).json({ message: "delete goals" });
+router.delete("/:id", async (req, res) => {
+  try {
+    const todo = Todo.findById(req.params.id);
+    if (!todo) {
+      res.status(404).json({ msg: "Todo not found" });
+    }
+
+    await Todo.findByIdAndRemove(req.params.id);
+    res.status(200).json({ id: req.params.id });
+  } catch (err) {
+    res.status(500).send("Server Error");
+  }
 });
 
 module.exports = router;
