@@ -36,7 +36,7 @@ const TodoForm = ({ todoItem, setTodoItem }) => {
           onChange={(e) => setTodoItem({ ...todoItem, todo: e.target.value })}
         />
         <button className="create-button" type="submit" onClick={handleSubmit}>
-          Add
+          {todoItem._id ? "Update" : "Create"}
         </button>
       </form>
     </div>
