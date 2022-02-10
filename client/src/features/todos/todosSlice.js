@@ -29,6 +29,7 @@ export const updateTodos = createAsyncThunk(
   }
 );
 
+// delete
 export const deleteTodos = createAsyncThunk("todos/deleteTodos", async (id) => {
   const response = await axios.delete(`${baseURL}/${id}`);
   return response.data;
@@ -65,6 +66,10 @@ export const todoSlice = createSlice({
           todo._id === action.payload._id ? action.payload : todo
         ),
       };
+    },
+
+    [deleteTodos.pending]: () => {
+      console.log("pending");
     },
 
     [deleteTodos.fulfilled]: (state, action) => {
