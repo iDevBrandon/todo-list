@@ -13,6 +13,12 @@ const TodoForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    if (todoItem.todo.trim() === "") {
+      alert("Please enter a todo item");
+
+      return;
+    }
+
     dispatch(createTodo(todoItem));
     setTodoItem({
       todo: "",
