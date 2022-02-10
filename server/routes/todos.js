@@ -61,9 +61,9 @@ router.delete("/:id", async (req, res) => {
     }
 
     await Todo.findByIdAndRemove(req.params.id);
-    res.status(200).json({ id: req.params.id });
+    return res.status(200).json({ id: req.params.id });
   } catch (err) {
-    res.status(500).send("Server Error");
+    return res.status(500).send("Server Error");
   }
 });
 

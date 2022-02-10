@@ -11,14 +11,15 @@ const TodoListItem = ({ todo, setTodoItem }) => {
     setTodoItem({ ...todo });
   };
 
-  const handleDelete = () => {
-    dispatch(deleteTodos(todo._id));
+  const handleDelete = (_id) => {
+    dispatch(deleteTodos(_id));
+    // refresh the page
   };
 
   return (
     <div className="todo-item">
       <h2 className="todo-text">{todo.todo}</h2>
-      <button className="remove" onClick={handleDelete}>
+      <button className="remove" onClick={() => handleDelete(todo._id)}>
         <RiDeleteBin2Fill />
       </button>
       <button className="edit" onClick={handleUpdate}>
