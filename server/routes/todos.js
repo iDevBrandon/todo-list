@@ -44,9 +44,9 @@ router.put("/:id", async (req, res) => {
       new: true,
     });
 
-    res.status(200).json(updatedTodo);
+    return res.status(200).json(updatedTodo);
   } catch (err) {
-    res.status(500).send("Server Error");
+    return res.status(500).send("Server Error");
   }
 });
 

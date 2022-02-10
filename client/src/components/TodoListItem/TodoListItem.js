@@ -4,10 +4,14 @@ import { deleteTodos } from "../../features/todos/todosSlice";
 import "./TodoListItem.css";
 import { useDispatch } from "react-redux";
 
-const TodoListItem = ({ todo }) => {
+const TodoListItem = ({ todo, setTodoItem }) => {
   const dispatch = useDispatch();
 
-  const handleDelete = (e) => {
+  const handleUpdate = () => {
+    setTodoItem({ ...todo });
+  };
+
+  const handleDelete = () => {
     dispatch(deleteTodos(todo._id));
   };
 
@@ -17,7 +21,7 @@ const TodoListItem = ({ todo }) => {
       <button className="remove" onClick={handleDelete}>
         <RiDeleteBin2Fill />
       </button>
-      <button className="edit">
+      <button className="edit" onClick={handleUpdate}>
         <RiEdit2Fill />
       </button>
     </div>

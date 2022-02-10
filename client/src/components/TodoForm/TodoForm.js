@@ -1,13 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
-import { createTodo } from "../../features/todos/todosSlice";
+import { createTodo, updateTodos } from "../../features/todos/todosSlice";
 import "./TodoForm.css";
 
-const TodoForm = () => {
-  const [todoItem, setTodoItem] = useState({
-    todo: "",
-    isComplete: false,
-  });
+const TodoForm = ({ todoItem, setTodoItem }) => {
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
@@ -15,11 +11,15 @@ const TodoForm = () => {
 
     if (todoItem.todo.trim() === "") {
       alert("Please enter a todo item");
-
       return;
     }
 
-    dispatch(createTodo(todoItem));
+    if (todoItem._id) {
+      dispatch(updateTodos(todoItem));
+    } else {
+      dispatch(createTodo(todoItem));
+    }
+
     setTodoItem({
       todo: "",
       isComplete: false,
@@ -31,12 +31,12 @@ const TodoForm = () => {
       <form className="form" onSubmit={handleSubmit}>
         <input
           type="text"
-          placeholder="할 일을 추가해 주세요"
+          placeholder="Please add a todo item"
           value={todoItem.todo}
           onChange={(e) => setTodoItem({ ...todoItem, todo: e.target.value })}
         />
         <button className="create-button" type="submit" onClick={handleSubmit}>
-          추가
+          Add
         </button>
       </form>
     </div>

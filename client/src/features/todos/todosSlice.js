@@ -7,6 +7,7 @@ const initialState = {
   todos: [],
 };
 
+// Action creators for the slice
 export const createTodo = createAsyncThunk(
   "todos/createTodos",
   async (todo) => {
@@ -19,6 +20,14 @@ export const fetchTodos = createAsyncThunk("todos/fetchTodos", async () => {
   const response = await axios.get(baseURL);
   return response.data;
 });
+
+export const updateTodos = createAsyncThunk(
+  "todos/updateTodos",
+  async (todo) => {
+    const response = await axios.put(`${baseURL}/${todo._id}`, todo);
+    return response.data;
+  }
+);
 
 export const deleteTodos = createAsyncThunk("todos/deleteTodos", async (id) => {
   const response = await axios.delete(`${baseURL}/${id}`);
@@ -49,9 +58,20 @@ export const todoSlice = createSlice({
       console.log("Rejected!");
     },
 
+    [updateTodos.fulfilled]: (state, action) => {
+      return {
+        ...state,
+        todos: state.todos.map((todo) =>
+          todo._id === action.payload._id ? action.payload : todo
+        ),
+      };
+    },
+
     [deleteTodos.fulfilled]: (state, action) => {
-      const index = state.todos.findIndex((todo) => todo.id === action.payload);
-      state.todos.splice(index, 1);
+      return {
+        ...state,
+        todos: state.todos.filter((todo) => todo._id !== action.payload),
+      };
     },
   },
 });
