@@ -4,13 +4,16 @@ import { createTodo } from "../../features/todos/todosSlice";
 import "./TodoForm.css";
 
 const TodoForm = () => {
-  const [todo, setTodo] = useState("");
+  const [todoItem, setTodoItem] = useState({
+    todo: "",
+    isComplete: false,
+  });
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(todo);
-    dispatch(createTodo());
+
+    dispatch(createTodo(todoItem));
   };
 
   return (
@@ -19,8 +22,8 @@ const TodoForm = () => {
         <input
           type="text"
           placeholder="할 일을 추가해 주세요"
-          value={todo}
-          onChange={(e) => setTodo(e.target.value)}
+          value={todoItem.todo}
+          onChange={(e) => setTodoItem(e.target.value)}
         />
         <button className="create-button" type="submit" onClick={handleSubmit}>
           추가

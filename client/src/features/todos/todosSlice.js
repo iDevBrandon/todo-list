@@ -10,7 +10,7 @@ const initialState = {
 export const createTodo = createAsyncThunk(
   "todos/createTodos",
   async (data) => {
-    const response = await axios.post(baseURL, data);
+    const response = await axios.post(baseURL, { todo: data });
     return response.data;
   }
 );

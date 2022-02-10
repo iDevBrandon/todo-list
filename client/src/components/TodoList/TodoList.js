@@ -7,6 +7,7 @@ const TodoList = () => {
   console.log(todos);
   return (
     <div>
+      <h1>Total number of your todos: {todos.length}</h1>
       {todos.map((todo, _id) => (
         <TodoListItem key={_id} todo={todo} />
       ))}
