@@ -23,9 +23,9 @@ router.post("/", async (req, res) => {
   // const { todo, isComplete } = req.body;
   try {
     const savedTodo = await newTodo.save();
-    res.status(200).json(savedTodo);
+    return res.status(200).json(savedTodo);
   } catch (err) {
-    res.status(500).send("Server Error");
+    return sres.status(500).send("Server Error");
   }
 });
 

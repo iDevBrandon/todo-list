@@ -9,8 +9,8 @@ const initialState = {
 
 export const createTodo = createAsyncThunk(
   "todos/createTodos",
-  async (data) => {
-    const response = await axios.post(baseURL, { todo: data });
+  async (todo) => {
+    const response = await axios.post(baseURL, todo);
     return response.data;
   }
 );
@@ -31,7 +31,11 @@ export const todoSlice = createSlice({
   reducers: {},
   extraReducers: {
     [createTodo.fulfilled]: (state, action) => {
-      state.todos.push(action.payload);
+      // state.todos.push(action.payload);
+      return {
+        ...state,
+        todos: [...state.todos, action.payload],
+      };
     },
 
     [fetchTodos.pending]: () => {

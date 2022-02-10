@@ -14,6 +14,10 @@ const TodoForm = () => {
     e.preventDefault();
 
     dispatch(createTodo(todoItem));
+    setTodoItem({
+      todo: "",
+      isComplete: false,
+    });
   };
 
   return (
@@ -23,7 +27,7 @@ const TodoForm = () => {
           type="text"
           placeholder="할 일을 추가해 주세요"
           value={todoItem.todo}
-          onChange={(e) => setTodoItem(e.target.value)}
+          onChange={(e) => setTodoItem({ ...todoItem, todo: e.target.value })}
         />
         <button className="create-button" type="submit" onClick={handleSubmit}>
           추가
