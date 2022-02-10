@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const PORT = process.env.PORT || 8800;
 const cors = require("cors");
+const todos = require("./routes/todos");
 
 dotenv.config();
 app.use(cors());
@@ -14,7 +15,7 @@ mongoose.connect(process.env.MONGODB_URI, () => {
   console.log("Connected to DB...");
 });
 
-// app.use("/api/todos", todos);
+app.use("/api/todos", todos);
 
 app.get("/", (req, res) => {
   res.send("TODO API");
