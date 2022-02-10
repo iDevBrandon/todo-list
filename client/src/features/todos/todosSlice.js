@@ -20,6 +20,11 @@ export const fetchTodos = createAsyncThunk("todos/fetchTodos", async () => {
   return response.data;
 });
 
+export const deleteTodos = createAsyncThunk("todos/deleteTodos", async (id) => {
+  const response = await axios.delete(`${baseURL}/${id}`);
+  return response.data;
+});
+
 export const todoSlice = createSlice({
   name: "todos",
   initialState,
@@ -38,6 +43,11 @@ export const todoSlice = createSlice({
     },
     [fetchTodos.rejected]: () => {
       console.log("Rejected!");
+    },
+
+    [deleteTodos.fulfilled]: (state, action) => {
+      const index = state.todos.findIndex((todo) => todo.id === action.payload);
+      state.todos.splice(index, 1);
     },
   },
 });
