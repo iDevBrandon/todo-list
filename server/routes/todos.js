@@ -18,8 +18,15 @@ router.get("/", async (req, res) => {
 // @route  POST api/todos
 // @desc   create a todo
 // @access Public
-router.post("/", (req, res) => {
-  res.status(200).json({ message: "create goals" });
+router.post("/", async (req, res) => {
+  const newTodo = new Todo(req.body);
+  // const { todo, isComplete } = req.body;
+  try {
+    const savedTodo = await newTodo.save();
+    res.status(200).json(savedTodo);
+  } catch (err) {
+    res.status(500).send("Server Error");
+  }
 });
 
 // @route  PUT api/todos
