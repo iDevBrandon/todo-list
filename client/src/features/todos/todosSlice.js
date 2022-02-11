@@ -41,7 +41,6 @@ export const todoSlice = createSlice({
   reducers: {},
   extraReducers: {
     [createTodo.fulfilled]: (state, action) => {
-      // state.todos.push(action.payload);
       return {
         ...state,
         todos: [...state.todos, action.payload],

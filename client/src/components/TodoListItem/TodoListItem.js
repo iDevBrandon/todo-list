@@ -14,6 +14,7 @@ const TodoListItem = ({ todo, setTodoItem }) => {
   const handleDelete = (_id) => {
     dispatch(deleteTodos(_id));
     // refresh the page
+    window.location.reload();
   };
 
   return (
